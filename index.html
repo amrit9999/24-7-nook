@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>24/7 Nook Convenience Store — Franchise</title>
+  <style>
+    :root{
+      --primary: #37353E; /* provided color palette */
+      --accent: #ffb74d;
+      --muted: #6b6a70;
+      --bg: #f8f8f9;
+      --card: #ffffff;
+      --maxwidth: 1100px;
+      --radius: 10px;
+      --glass: rgba(55,53,62,0.06);
+      --font-sans: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font-sans);
+      background:linear-gradient(180deg,var(--bg),#ffffff);
+      color:#222;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Layout */
+    .container{
+      display:flex;
+      min-height:100vh;
+      max-width:var(--maxwidth);
+      margin:24px auto;
+      gap:20px;
+      padding:16px;
+    }
+
+    /* Left sidebar */
+    .sidebar{
+      width:260px;
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:0 6px 18px rgba(10,10,12,0.06);
+      position:sticky;
+      top:24px;
+      height:calc(100vh - 48px);
+      overflow:auto;
+      border-left:6px solid var(--primary);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:56px;
+      height:56px;
+      background:linear-gradient(135deg,var(--primary),#4a4951);
+      color:white;
+      font-weight:700;
+      font-size:14px;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(55,53,62,0.25);
+    }
+    .brand h1{
+      font-size:16px;
+      margin:0;
+      color:var(--primary);
+      line-height:1.05;
+    }
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    /* Top menu inside sidebar */
+    .menu{
+      margin-top:14px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .menu a{
+      text-decoration:none;
+      color:var(--primary);
+      padding:10px 12px;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-weight:600;
+    }
+    .menu a:hover{background:var(--glass)}
+
+    .quick-info{
+      margin-top:18px;
+      font-size:14px;
+      color:#333;
+    }
+    .quick-info b{color:var(--primary)}
+    .sidebar footer{
+      position:sticky;
+      bottom:18px;
+      margin-top:20px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* Main area */
+    main{
+      flex:1;
+      padding:18px;
+      min-width:0;
+    }
+    .hero{
+      background:var(--card);
+      padding:22px;
+      border-radius:var(--radius);
+      box-shadow:0 6px 18px rgba(10,10,12,0.04);
+      margin-bottom:18px;
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .hero .title{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+    .brand-heading{
+      font-size:22px;
+      color:var(--primary);
+      margin:0;
+    }
+    .brand-heading .trolley{font-size:22px;margin-right:8px}
+    .sub{
+      color:var(--muted);
+      margin-top:6px;
+      font-size:14px;
+    }
+
+    /* toolbar for categories */
+    .toolbar{
+      display:flex;
+      gap:10px;
+      margin:18px 0;
+      flex-wrap:wrap;
+    }
+    .category{
+      background:linear-gradient(180deg, #fff, #fbfbfb);
+      border:1px solid #eee;
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+      color:#222;
+      box-shadow:0 6px 14px rgba(60,60,60,0.04);
+      transition:transform .12s ease, box-shadow .12s;
+    }
+    .category:hover{transform:translateY(-3px); box-shadow:0 10px 28px rgba(55,53,62,0.08)}
+
+    /* section cards */
+    section.card{
+      background:var(--card);
+      padding:18px;
+      border-radius:10px;
+      box-shadow:0 6px 18px rgba(10,10,12,0.04);
+      margin-bottom:16px;
+    }
+    h2{color:var(--primary); margin:0 0 8px 0}
+    p.lead{color:#444; margin:0 0 12px 0}
+
+    /* franchise form */
+    .form-row{display:flex;gap:12px;flex-wrap:wrap}
+    .form-row > *{flex:1;min-width:170px}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type="text"], input[type="email"], input[type="number"], textarea, select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #e6e6e7;
+      font-size:14px;
+      background: #fff;
+    }
+    textarea{min-height:110px; resize:vertical}
+    .btn{
+      display:inline-block;
+      background:var(--primary);
+      color:white;
+      padding:10px 14px;
+      border-radius:8px;
+      text-decoration:none;
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .muted{color:var(--muted);font-size:13px}
+
+    /* budget table */
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    table th, table td{padding:10px;border-bottom:1px solid #f0f0f0;text-align:left}
+    table th{background:#fafafa;color:var(--muted);font-weight:700}
+
+    /* footer contact */
+    .contact{
+      text-align:left;
+      padding:16px;
+      border-radius:10px;
+      background:linear-gradient(180deg,#fff,#fcfcfd);
+      margin-top:12px;
+      box-shadow:0 6px 18px rgba(10,10,12,0.03);
+    }
+    .small{font-size:13px;color:var(--muted)}
+    .success{
+      padding:12px;
+      background:#e9f8ef;
+      border-left:4px solid #2e7d32;
+      color:#1b5e20;
+      border-radius:8px;
+      margin-top:10px;
+    }
+
+    /* responsive */
+    @media (max-width:900px){
+      .container{flex-direction:column;padding:12px}
+      .sidebar{width:100%;height:auto;position:relative;border-left:6px solid var(--primary)}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" aria-label="Left navigation">
+      <div class="brand" role="banner">
+        <div class="logo" aria-hidden="true">Nook</div>
+        <div>
+          <h1>24/7 nook convenience store</h1>
+          <p class="small">Franchise opportunities • Open 24/7</p>
+        </div>
+      </div>
+
+      <nav class="menu" aria-label="Primary">
+        <a href="#home">🏠 Home</a>
+        <a href="#services">🛍️ Services</a>
+        <a href="#franchise">✍️ Franchise Registration</a>
+        <a href="#about">ℹ️ About</a>
+        <a href="#contact">☎️ Contact</a>
+      </nav>
+
+      <div class="quick-info">
+        <p><b>Open</b> — 24 hours, every day</p>
+        <p><b>Model</b> — Convenience store + quick essentials</p>
+      </div>
+
+      <footer>
+        <div class="small">Founder: Ashutosh Singh</div>
+        <div class="small">Email: ashu.tosh012206@gmail.com</div>
+      </footer>
+    </aside>
+
+    <!-- MAIN -->
+    <main>
+      <!-- HERO -->
+      <div class="hero" id="home">
+        <div class="title">
+          <div>
+            <div class="brand-heading"><span class="trolley">🛒</span> 24/7 nook convenience store <span class="trolley">🛒</span></div>
+            <div class="sub">Fast • Friendly • Always open</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div class="small">Franchise enquiries welcome</div>
+          <a class="btn" href="#franchise">Register Now</a>
+        </div>
+      </div>
+
+      <!-- WHAT 24/7 MEANS -->
+      <section class="card" id="what">
+        <h2>What does 24/7 mean at 24/7 Nook?</h2>
+        <p class="lead">
+          Being 24/7 means that our stores are available any time a customer needs everyday essentials — early morning coffee, midnight snacks,
+          emergency medicines, or last-minute groceries. We combine a curated range of convenience items with fast service so your neighbourhood never runs out.
+        </p>
+      </section>
+
+      <!-- TOOLBAR -->
+      <section class="card" id="services">
+        <h2>Convenience Categories</h2>
+        <p class="small">Quickly jump to a category below — tailored assortment for every hour.</p>
+
+        <div class="toolbar" role="toolbar" aria-label="Convenience categories">
+          <div class="category" onclick="filterCategory('packaged')">Packaged Food Items</div>
+          <div class="category" onclick="filterCategory('fresh')">Fresh Food & Ready-to-eat</div>
+          <div class="category" onclick="filterCategory('beverages')">Beverages</div>
+          <div class="category" onclick="filterCategory('household')">Household Supplies</div>
+          <div class="category" onclick="filterCategory('toiletries')">Toiletries & Health</div>
+        </div>
+
+        <div id="category-content" style="margin-top:14px">
+          <p class="muted">Select a category to see sample items.</p>
+        </div>
+      </section>
+
+      <!-- FRANCHISE REGISTRATION -->
+      <section class="card" id="franchise">
+        <h2>Franchise Registration</h2>
+        <p class="lead">Join most profitable convenience store of India</p>
+
+        <form id="franchise-form" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div>
+              <label for="fname">Full name</label>
+              <input id="fname" name="fname" type="text" placeholder="Your name" required>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@domain.com" required>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top:12px">
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="text" placeholder="+91 98xxxxxxx">
+            </div>
+            <div>
+              <label for="city">City / District</label>
+              <input id="city" name="city" type="text" placeholder="Mumbai, Delhi, etc">
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <label for="storeSize">Preferred store size (sqm)</label>
+            <select id="storeSize" name="storeSize">
+              <option value="100">100 sqm</option>
+              <option value="250">250 sqm</option>
+              <option value="500">500 sqm</option>
+              <option value="custom">Custom (specify below)</option>
+            </select>
+          </div>
+
+          <div style="margin-top:12px">
+            <label for="notes">A short note (location, experience, investment capability)</label>
+            <textarea id="notes" name="notes" placeholder="Tell us more..."></textarea>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:12px;align-items:center">
+            <button class="btn" type="submit">Submit Application</button>
+            <div class="muted">We will contact you within 3 business days.</div>
+          </div>
+
+          <div id="form-success" style="display:none" class="success">
+            Thank you — your request has been received. Our franchise team will reach out to the email you provided.
+          </div>
+        </form>
+      </section>
+
+      <!-- PROCESS -->
+      <section class="card" id="process">
+        <h2>Process to take a franchise</h2>
+        <ol style="padding-left:18px;color:#333">
+          <li>Initial enquiry & application (you submit the registration form).</li>
+          <li>Preliminary review by our franchise team and quick call to discuss location & budget.</li>
+          <li>Site visit & evaluation (if required) or paper evaluation for already available locations.</li>
+          <li>Agreement, training, & fit-out planning.</li>
+          <li>Store setup, stock loading, soft launch, and grand opening support.</li>
+        </ol>
+      </section>
+
+      <!-- BUDGET DETAILS -->
+      <section class="card" id="budget">
+        <h2>Estimated budget examples</h2>
+        <p class="small">These are representative estimates. Final numbers depend on location, rent, and fit-out choices.</p>
+
+        <table aria-describedby="budget-desc">
+          <thead>
+            <tr><th>Store size</th><th>Estimated investment (INR)</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>100 sqm</td><td>₹6,00,000</td><td>Small urban shop, limited assortment</td></tr>
+            <tr><td>250 sqm</td><td>₹12,00,000</td><td>Standard neighbourhood store</td></tr>
+            <tr><td>500 sqm</td><td>₹20,00,000</td><td>Large store with expanded categories (example you gave)</td></tr>
+            <tr><td>Custom / Mall kiosk</td><td>Varies</td><td>Depends on fit-out & lease</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="card" id="about">
+        <h2>About 24/7 Nook</h2>
+        <p class="lead">
+          24/7 Nook is a franchise-friendly convenience store concept designed for modern neighbourhoods.
+          We focus on convenience, quick purchases, and reliable availability with an emphasis on essential categories that sell throughout the day and night.
+        </p>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="card contact" id="contact">
+        <h2>Contact</h2>
+        <p class="small">For franchise queries and business partnerships:</p>
+        <p><strong>Founder</strong> — Ashutosh Singh</p>
+        <p><strong>Email</strong> — <a href="mailto:ashu.tosh012206@gmail.com">ashu.tosh012206@gmail.com</a></p>
+        <p class="small">Address: Franchise enquiries handled centrally. Include your city and preferred store size in the registration form above.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // category filter demo
+    const sample = {
+      packaged: ["Biscuits & Cookies", "Instant Noodles", "Chips & Savouries", "Ready-to-eat meals"],
+      fresh: ["Sandwiches", "Salads", "Bread & Bakery", "Fresh fruit packs"],
+      beverages: ["Tea/Coffee sachets", "Soft drinks", "Energy drinks", "Bottled water"],
+      household: ["Cleaning liquids", "Detergents", "Paper napkins", "Bin liners"],
+      toiletries: ["Soap, Shampoo", "Sanitary products", "Toothpaste", "OTC basics"]
+    };
+
+    function filterCategory(key){
+      const container = document.getElementById('category-content');
+      const items = sample[key] || [];
+      if(items.length === 0){
+        container.innerHTML = '<p class="muted">No items found for this category.</p>';
+        return;
+      }
+      let html = '<div><strong style="color:var(--primary);text-transform:capitalize">'+ key +'</strong><ul style="margin:8px 0 0 18px">';
+      items.forEach(i => html += '<li>'+i+'</li>');
+      html += '</ul></div>';
+      container.innerHTML = html;
+      // smooth scroll to services section for emphasis
+      document.getElementById('services').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // simple form submit simulation
+    function submitForm(e){
+      e.preventDefault();
+      // gather some simple validation and then show success
+      const name = document.getElementById('fname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if(!name || !email){
+        alert('Please add your name and email.');
+        return;
+      }
+      document.getElementById('form-success').style.display = 'block';
+      document.getElementById('franchise-form').reset();
+      // scroll to success message
+      document.getElementById('form-success').scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  </script>
+</body>
+</html>
